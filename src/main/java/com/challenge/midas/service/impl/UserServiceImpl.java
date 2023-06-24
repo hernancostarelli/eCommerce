@@ -20,8 +20,8 @@ import java.util.Optional;
 @Service
 public class UserServiceImpl implements IUserService {
 
-    private final UserRepository repository;
     private final UserMapper mapper;
+    private final UserRepository repository;
 
     public UserServiceImpl(UserRepository repository, UserMapper mapper) {
         this.repository = repository;

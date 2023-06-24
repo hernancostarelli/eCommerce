@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "shopping_cart")
+@Table(name = "shopping_carts")
 @Getter
 @Setter
 @RequiredArgsConstructor

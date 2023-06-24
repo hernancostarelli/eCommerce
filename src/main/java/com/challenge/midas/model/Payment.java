@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "payment")
+@Table(name = "payments")
 @Getter
 @Setter
 @RequiredArgsConstructor

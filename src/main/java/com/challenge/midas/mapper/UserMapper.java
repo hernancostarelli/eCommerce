@@ -9,6 +9,7 @@ import com.challenge.midas.exception.EmailAlreadyExistException;
 import com.challenge.midas.exception.UserException;
 import com.challenge.midas.model.User;
 import com.challenge.midas.repository.UserRepository;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -68,12 +69,12 @@ public class UserMapper {
         return response;
     }
 
-    public List<UserResponse> convertToResponseList(List<User> list) {
-        List<UserResponse> userList = new ArrayList<>();
-        for (User entity : list) {
-            userList.add(this.convertToResponse(entity));
+    public List<UserResponse> convertToResponseList(List<User> userList) {
+        List<UserResponse> userResponseList = new ArrayList<>();
+        for (User entity : userList) {
+            userResponseList.add(this.convertToResponse(entity));
         }
-        return userList;
+        return userResponseList;
     }
 
     private void validateRequestCreate(UserRequest request) throws UserException, EmailAlreadyExistException {
@@ -82,28 +83,31 @@ public class UserMapper {
         String email = request.getEmail();
         String password = request.getPassword();
         String confirmPassword = request.getConfirmPassword();
-        if (name == null || name.isEmpty())
+        if (StringUtils.isBlank(name))
             throw new UserException(EExceptionMessage.THE_USER_NAME_CANNOT_BE_EMPTY_OR_BE_NULL.toString());
-        if (surname == null || surname.isEmpty())
+        if (StringUtils.isBlank(surname))
             throw new UserException(EExceptionMessage.THE_USER_SURNAME_CANNOT_BE_EMPTY_OR_BE_NULL.toString());
-        if (email == null || email.isEmpty())
+        if (StringUtils.isBlank(email))
             throw new UserException(EExceptionMessage.THE_USER_EMAIL_CANNOT_BE_EMPTY_OR_BE_NULL.toString());
         if (repository.existsByEmail(email))
             throw new EmailAlreadyExistException(EExceptionMessage.EMAIL_ALREADY_EXISTS.getMessage(email));
-        if (password == null || password.isEmpty() || confirmPassword == null || confirmPassword.isEmpty()
-                || !password.equals(confirmPassword))
+        if (StringUtils.isBlank(password))
             throw new UserException(EExceptionMessage.THE_USER_PASSWORD_CANNOT_BE_EMPTY_OR_BE_NULL.toString());
+        if (StringUtils.isBlank(confirmPassword))
+            throw new UserException(EExceptionMessage.THE_PASSWORD_CONFIRMATION_CANNOT_BE_EMPTY_OR_NULL.toString());
+        if (!password.equals(confirmPassword))
+            throw new UserException(EExceptionMessage.THE_ENTERED_PASSWORDS_DO_NOT_MATCH.toString());
     }
 
     private void validateRequestModify(UserRequestModify request) throws UserException, EmailAlreadyExistException {
         String name = request.getName();
         String surname = request.getSurname();
         String email = request.getEmail();
-        if (name == null || name.isEmpty())
+        if (StringUtils.isBlank(name))
             throw new UserException(EExceptionMessage.THE_USER_NAME_CANNOT_BE_EMPTY_OR_BE_NULL.toString());
-        if (surname == null || surname.isEmpty())
+        if (StringUtils.isBlank(surname))
             throw new UserException(EExceptionMessage.THE_USER_SURNAME_CANNOT_BE_EMPTY_OR_BE_NULL.toString());
-        if (email == null || email.isEmpty())
+        if (StringUtils.isBlank(email))
             throw new UserException(EExceptionMessage.THE_USER_EMAIL_CANNOT_BE_EMPTY_OR_BE_NULL.toString());
         if (repository.existsByEmail(email))
             throw new EmailAlreadyExistException(EExceptionMessage.EMAIL_ALREADY_EXISTS.getMessage(email));
@@ -113,14 +117,14 @@ public class UserMapper {
         String oldPassword = request.getOldPassword();
         String newPassword = request.getNewPassword();
         String confirmPassword = request.getConfirmPassword();
-        if (oldPassword == null || oldPassword.isEmpty())
+        if (StringUtils.isBlank(oldPassword))
             throw new UserException(EExceptionMessage.THE_USER_PASSWORD_CANNOT_BE_EMPTY_OR_BE_NULL.toString());
         if (!passwordEncoder.matches(oldPassword, user.getPassword()))
             throw new UserException(EExceptionMessage.WRONG_PASSWORD.toString());
-        if (newPassword == null || newPassword.isEmpty())
+        if (StringUtils.isBlank(newPassword))
             throw new UserException(EExceptionMessage.THE_USER_PASSWORD_CANNOT_BE_EMPTY_OR_BE_NULL.toString());
-        if (confirmPassword == null || confirmPassword.isEmpty())
-            throw new UserException(EExceptionMessage.THE_PASSWORD_CONFIRMATION_CANNOT_BE_EMPTY_OR_VOID.toString());
+        if (StringUtils.isBlank(confirmPassword))
+            throw new UserException(EExceptionMessage.THE_PASSWORD_CONFIRMATION_CANNOT_BE_EMPTY_OR_NULL.toString());
         if (!newPassword.equals(confirmPassword))
             throw new UserException(EExceptionMessage.THE_ENTERED_PASSWORDS_DO_NOT_MATCH.toString());
     }

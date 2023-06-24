@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 @Getter
 @Setter
 @RequiredArgsConstructor
@@ -50,6 +50,9 @@ public class User implements Serializable {
 
     @Column(name = "password", nullable = false)
     private String password;
+
+    @OneToMany(mappedBy = "user")
+    private List<Product> products;
 
     @OneToMany(mappedBy = "user")
     private List<Order> orders;

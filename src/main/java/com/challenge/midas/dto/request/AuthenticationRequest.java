@@ -1,4 +1,4 @@
-package com.challenge.midas.dto.request.User;
+package com.challenge.midas.dto.request;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;

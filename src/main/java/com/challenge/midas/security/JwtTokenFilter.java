@@ -1,6 +1,5 @@
 package com.challenge.midas.security;
 
-import com.challenge.midas.service.impl.UserServiceImpl;
 import lombok.Data;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
