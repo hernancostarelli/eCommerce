@@ -1,4 +1,4 @@
-                   REPLACE INTO user (id, name, surname, email, password, role, creation_date, modification_date, deleted)
+                   REPLACE INTO users (id, name, surname, email, password, role, creation_date, modification_date, deleted)
 
                    VALUES
 

@@ -14,6 +14,7 @@ import java.util.List;
 
 @Component
 public class ProductMapper {
+
     public Product convertToEntity(Product product, ProductRequest request) throws ProductException {
         validateRequest(request);
         product.setName((request.getName()));
@@ -54,23 +55,21 @@ public class ProductMapper {
     private void validateRequest(ProductRequest request) throws ProductException {
         String name = request.getName();
         String description = request.getDescription();
-        Double price = request.getPrice();
+        double price = request.getPrice();
         Integer quantity = request.getQuantity();
         String image = request.getImage();
-        if (StringUtils.isBlank(name)) {
+        if (StringUtils.isBlank(name))
             throw new ProductException(EExceptionMessage.THE_PRODUCT_NAME_CANNOT_BE_EMPTY_OR_BE_NULL.toString());
-        }
-        if (StringUtils.isBlank(description)) {
+        if (StringUtils.isBlank(description))
             throw new ProductException(EExceptionMessage.THE_PRODUCT_DESCRIPTION_CANNOT_BE_EMPTY_OR_BE_NULL.toString());
-        }
-        if (price == null || price.isNaN()) {
+        if (Double.isNaN(price))
             throw new ProductException(EExceptionMessage.THE_PRODUCT_PRICE_CANNOT_BE_EMPTY_OR_BE_NULL.toString());
+        if (price <= 0)
+            throw new ProductException(EExceptionMessage.THE_PRODUCT_PRICE_MUST_BE_POSITIVE.toString());
+        if (quantity <= 0) {
+            throw new ProductException(EExceptionMessage.THE_PRODUCT_QUANTITY_MUST_BE_POSITIVE.toString());
         }
-        if (quantity == null) {
-            throw new ProductException(EExceptionMessage.THE_PRODUCT_QUANTITY_CANNOT_BE_EMPTY_OR_BE_NULL.toString());
-        }
-        if (StringUtils.isBlank(image)) {
+        if (StringUtils.isBlank(image))
             throw new ProductException(EExceptionMessage.THE_PRODUCT_IMAGE_CANNOT_BE_EMPTY_OR_BE_NULL.toString());
-        }
     }
 }

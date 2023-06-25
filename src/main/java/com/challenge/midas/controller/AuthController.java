@@ -1,4 +1,4 @@
-package com.challenge.midas.controller.impl;
+package com.challenge.midas.controller;
 
 import com.challenge.midas.dto.request.AuthenticationRequest;
 import com.challenge.midas.dto.response.JwtResponse;
