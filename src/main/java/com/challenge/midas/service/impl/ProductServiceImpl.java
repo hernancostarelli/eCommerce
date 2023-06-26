@@ -4,10 +4,12 @@ import com.challenge.midas.dto.request.Product.ProductRequest;
 import com.challenge.midas.dto.response.ProductResponse;
 import com.challenge.midas.enums.EExceptionMessage;
 import com.challenge.midas.exception.ProductException;
+import com.challenge.midas.exception.UserException;
 import com.challenge.midas.mapper.ProductMapper;
 import com.challenge.midas.model.Product;
 import com.challenge.midas.repository.ProductRepository;
 import com.challenge.midas.service.IProductService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -15,29 +17,24 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class ProductServiceImpl implements IProductService {
+
     private final ProductMapper mapper;
     private final ProductRepository repository;
 
-    public ProductServiceImpl(ProductMapper mapper, ProductRepository repository) {
-        this.mapper = mapper;
-        this.repository = repository;
+    @Override
+    public ProductResponse create(ProductRequest request) throws ProductException, UserException {
+        Product product = mapper.convertToEntity(new Product(), request);
+        return mapper.convertToResponse(repository.save(product));
     }
 
     @Override
-    public ProductResponse create(ProductRequest request) throws ProductException {
-        Product productForConvert = mapper.convertToEntity(new Product(), request);
-        Product productForSave = repository.save(productForConvert);
-        return mapper.convertToResponse(productForSave);
-    }
-
-    @Override
-    public ProductResponse modify(String idProduct, ProductRequest request) throws ProductException {
+    public ProductResponse modify(String idProduct, ProductRequest request) throws ProductException, UserException {
         Optional<Product> optionalProduct = repository.findById(idProduct);
         if (optionalProduct.isPresent()) {
-            Product productForConvert = mapper.convertToEntity(optionalProduct.get(), request);
-            Product productForSave = repository.save(productForConvert);
-            return mapper.convertToResponse(productForSave);
+            Product product = mapper.convertToEntity(optionalProduct.get(), request);
+            return mapper.convertToResponse(repository.save(product));
         } else {
             throw new ProductException(EExceptionMessage.PRODUCT_NOT_FOUND.toString());
         }
@@ -79,15 +76,22 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     public void delete(String idProduct) throws ProductException {
-        Product product = repository.findById(idProduct).orElseThrow(() -> new ProductException(EExceptionMessage.PRODUCT_NOT_FOUND.toString()));
-        repository.delete(product);
+        Optional<Product> optionalProduct = repository.findById(idProduct);
+        if (optionalProduct.isPresent()) {
+            repository.delete(optionalProduct.get());
+        } else {
+            throw new ProductException(EExceptionMessage.PRODUCT_NOT_FOUND.toString());
+        }
     }
 
     @Override
     public ProductResponse getById(String idProduct) throws ProductException {
-        return repository.findById(idProduct)
-                .map(mapper::convertToResponse)
-                .orElseThrow(() -> new ProductException(EExceptionMessage.PRODUCT_NOT_FOUND.toString()));
+        Optional<Product> optionalProduct = repository.findById(idProduct);
+        if (optionalProduct.isPresent()) {
+            return mapper.convertToResponse(optionalProduct.get());
+        } else {
+            throw new ProductException(EExceptionMessage.PRODUCT_NOT_FOUND.toString());
+        }
     }
 
     @Override

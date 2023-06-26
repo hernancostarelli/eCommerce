@@ -3,6 +3,7 @@ package com.challenge.midas.controller;
 import com.challenge.midas.dto.request.Product.ProductRequest;
 import com.challenge.midas.dto.response.ProductResponse;
 import com.challenge.midas.exception.ProductException;
+import com.challenge.midas.exception.UserException;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -31,23 +33,23 @@ import static com.challenge.midas.config.ApiConstants.PRODUCT_URI;
 @CrossOrigin(origins = "*")
 public interface IProductController {
 
-    @PostMapping(path = "/create-products", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<ProductResponse> create(@Valid @RequestBody ProductRequest request) throws ProductException;
+    @PostMapping(path = "/create-product", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<ProductResponse> create(@Valid @RequestBody ProductRequest request) throws ProductException, UserException;
 
-    @PutMapping(path = "/modify-product/{id-product}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<ProductResponse> modify(@NotNull @PathVariable("id-product") String idProduct, @Valid @RequestBody ProductRequest request) throws ProductException;
+    @PutMapping(path = "/modify-product/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<ProductResponse> modify(@PathVariable("id") @NotNull String idProduct, @Valid @RequestBody ProductRequest request) throws ProductException, UserException;
 
-    @PostMapping(path = "/enable-product/{id-product}")
-    ResponseEntity<ProductResponse> enable(@NotNull @PathVariable("id-product") String idProduct) throws ProductException;
+    @PatchMapping(path = "/enable-product/{id}")
+    ResponseEntity<Void> enable(@PathVariable("id") @NotNull String idProduct) throws ProductException;
 
-    @PostMapping(path = "/disable-product/{id-product}")
-    ResponseEntity<ProductResponse> disable(@NotNull @PathVariable("id-product") String idProduct) throws ProductException;
+    @PatchMapping(path = "/disable-product/{id}")
+    ResponseEntity<Void> disable(@PathVariable("id") @NotNull String idProduct) throws ProductException;
 
-    @DeleteMapping(path = "/delete-product/{id-product}")
-    ResponseEntity<ProductResponse> delete(@NotNull @PathVariable("id-product") String idProduct) throws ProductException;
+    @DeleteMapping(path = "/delete-product/{id}")
+    ResponseEntity<Void> delete(@PathVariable("id") @NotNull String idProduct) throws ProductException;
 
-    @GetMapping(path = "/get-product-by-id/{id-product}", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<ProductResponse> getById(@NotNull @PathVariable("id-product") String idProduct) throws ProductException;
+    @GetMapping(path = "/get-product-by-id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<ProductResponse> getById(@PathVariable("id") @NotNull String idProduct) throws ProductException;
 
     @GetMapping(path = "/get-all-product", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<List<ProductResponse>> getAll(@RequestParam(required = false) String value) throws ProductException;

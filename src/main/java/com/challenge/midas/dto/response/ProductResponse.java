@@ -2,7 +2,6 @@ package com.challenge.midas.dto.response;
 
 import com.challenge.midas.model.Order;
 import com.challenge.midas.model.ShoppingCart;
-import com.challenge.midas.model.User;
 import lombok.Data;
 
 import java.util.List;
@@ -15,10 +14,10 @@ public class ProductResponse {
     private double price;
     private int quantity;
     private String image;
-    private User user;
+    private String user;
     private List<Order> orders;
     private List<ShoppingCart> shoppingCarts;
     private String creationDate;
-    private String modificationData;
+    private String modificationDate;
     private String deleted;
 }

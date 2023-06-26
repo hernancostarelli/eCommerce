@@ -15,6 +15,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -41,10 +42,17 @@ public class UserMapper {
     }
 
     public User convertToEntityModify(User user, UserRequestModify request) throws UserException, EmailAlreadyExistException {
-        validateRequestModify(request);
+        String requestEmail = request.getEmail();
+        boolean isEmailChanged = !requestEmail.equals(user.getEmail());
+        boolean isEmailAlreadyInUse = repository.existsByEmail(requestEmail);
+        if (isEmailChanged && isEmailAlreadyInUse) {
+            validateRequestModifyFull(request);
+        } else {
+            validateRequestModifyBasic(request);
+        }
         user.setName(request.getName());
         user.setSurname(request.getSurname());
-        user.setEmail(request.getEmail());
+        user.setEmail(requestEmail);
         user.setModificationDate(new Date());
         return user;
     }
@@ -64,8 +72,11 @@ public class UserMapper {
         response.setFullName(user.getFullName());
         response.setEmail(user.getEmail());
         response.setRole(String.valueOf(user.getRole()));
-        response.setCreationDate(String.valueOf(user.getCreationDate()));
-        response.setModificationDate(String.valueOf(user.getModificationDate()));
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String stringCreationDate = user.getCreationDate() != null ? sdf.format(user.getCreationDate()) : null;
+        String stringModificationDate = user.getModificationDate() != null ? sdf.format(user.getModificationDate()) : null;
+        response.setCreationDate(stringCreationDate);
+        response.setModificationDate(stringModificationDate);
         response.setDeleted(String.valueOf(user.isDeleted()));
         return response;
     }
@@ -100,7 +111,7 @@ public class UserMapper {
             throw new UserException(EExceptionMessage.THE_ENTERED_PASSWORDS_DO_NOT_MATCH.toString());
     }
 
-    private void validateRequestModify(UserRequestModify request) throws UserException, EmailAlreadyExistException {
+    private void validateRequestModifyBasic(UserRequestModify request) throws UserException {
         String name = request.getName();
         String surname = request.getSurname();
         String email = request.getEmail();
@@ -110,8 +121,12 @@ public class UserMapper {
             throw new UserException(EExceptionMessage.THE_USER_SURNAME_CANNOT_BE_EMPTY_OR_BE_NULL.toString());
         if (StringUtils.isBlank(email))
             throw new UserException(EExceptionMessage.THE_USER_EMAIL_CANNOT_BE_EMPTY_OR_BE_NULL.toString());
-        if (repository.existsByEmail(email))
-            throw new EmailAlreadyExistException(EExceptionMessage.EMAIL_ALREADY_EXISTS.getMessage(email));
+    }
+
+    private void validateRequestModifyFull(UserRequestModify request) throws UserException, EmailAlreadyExistException {
+        validateRequestModifyBasic(request);
+        if (repository.existsByEmail(request.getEmail()))
+            throw new EmailAlreadyExistException(EExceptionMessage.EMAIL_ALREADY_EXISTS.getMessage(request.getEmail()));
     }
 
     private void validateRequestModifyPassword(User user, UserRequestModifyPassword request) throws UserException {

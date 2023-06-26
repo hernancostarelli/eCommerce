@@ -3,6 +3,7 @@ package com.challenge.midas.service;
 import com.challenge.midas.dto.request.Product.ProductRequest;
 import com.challenge.midas.dto.response.ProductResponse;
 import com.challenge.midas.exception.ProductException;
+import com.challenge.midas.exception.UserException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,9 +13,9 @@ import java.util.List;
 public interface IProductService {
 
     @Transactional
-    ProductResponse create(ProductRequest request) throws ProductException;
+    ProductResponse create(ProductRequest request) throws ProductException, UserException;
 
-    ProductResponse modify(String idProduct, ProductRequest request) throws ProductException;
+    ProductResponse modify(String idProduct, ProductRequest request) throws ProductException, UserException;
 
     @Transactional
     void enable(String idProduct) throws ProductException;

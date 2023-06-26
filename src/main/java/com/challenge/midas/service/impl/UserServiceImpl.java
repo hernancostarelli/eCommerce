@@ -11,6 +11,7 @@ import com.challenge.midas.mapper.UserMapper;
 import com.challenge.midas.model.User;
 import com.challenge.midas.repository.UserRepository;
 import com.challenge.midas.service.IUserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -18,30 +19,24 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements IUserService {
 
     private final UserMapper mapper;
     private final UserRepository repository;
 
-    public UserServiceImpl(UserRepository repository, UserMapper mapper) {
-        this.repository = repository;
-        this.mapper = mapper;
-    }
-
     @Override
     public UserResponse create(UserRequest request) throws UserException, EmailAlreadyExistException {
-        User userForConvert = mapper.convertToEntity(new User(), request);
-        User userForSave = repository.save(userForConvert);
-        return mapper.convertToResponse(userForSave);
+        User user = mapper.convertToEntity(new User(), request);
+        return mapper.convertToResponse(repository.save(user));
     }
 
     @Override
     public UserResponse modify(String idUser, UserRequestModify request) throws UserException, EmailAlreadyExistException {
         Optional<User> optionalUser = repository.findById(idUser);
         if (optionalUser.isPresent()) {
-            User userForConvert = mapper.convertToEntityModify(optionalUser.get(), request);
-            User userForSave = repository.save(userForConvert);
-            return mapper.convertToResponse(userForSave);
+            User user = mapper.convertToEntityModify(optionalUser.get(), request);
+            return mapper.convertToResponse(repository.save(user));
         } else {
             throw new UserException(EExceptionMessage.USER_NOT_FOUND.toString());
         }
@@ -92,15 +87,22 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public void delete(String idUser) throws UserException {
-        User user = repository.findById(idUser).orElseThrow(() -> new UserException(EExceptionMessage.USER_NOT_FOUND.toString()));
-        repository.delete(user);
+        Optional<User> optionalUser = repository.findById(idUser);
+        if (optionalUser.isPresent()) {
+            repository.delete(optionalUser.get());
+        } else {
+            throw new UserException(EExceptionMessage.USER_NOT_FOUND.toString());
+        }
     }
 
     @Override
     public UserResponse getById(String idUser) throws UserException {
-        return repository.findById(idUser)
-                .map(mapper::convertToResponse)
-                .orElseThrow(() -> new UserException(EExceptionMessage.USER_NOT_FOUND.toString()));
+        Optional<User> optionalUser = repository.findById(idUser);
+        if (optionalUser.isPresent()) {
+            return mapper.convertToResponse(optionalUser.get());
+        } else {
+            throw new UserException(EExceptionMessage.USER_NOT_FOUND.toString());
+        }
     }
 
     @Override
