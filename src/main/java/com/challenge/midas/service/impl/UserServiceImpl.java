@@ -1,8 +1,8 @@
 package com.challenge.midas.service.impl;
 
-import com.challenge.midas.dto.request.User.UserRequest;
-import com.challenge.midas.dto.request.User.UserRequestModify;
-import com.challenge.midas.dto.request.User.UserRequestModifyPassword;
+import com.challenge.midas.dto.request.user.UserRequest;
+import com.challenge.midas.dto.request.user.UserRequestModify;
+import com.challenge.midas.dto.request.user.UserRequestModifyPassword;
 import com.challenge.midas.dto.response.UserResponse;
 import com.challenge.midas.enums.EExceptionMessage;
 import com.challenge.midas.exception.EmailAlreadyExistException;
