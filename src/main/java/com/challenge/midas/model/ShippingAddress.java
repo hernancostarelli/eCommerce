@@ -11,10 +11,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -24,13 +20,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+
 @Entity
-@Table(name = "orders")
+@Table(name = "shipping_address")
 @Getter
 @Setter
 @RequiredArgsConstructor
 @ToString(onlyExplicitlyIncluded = true)
-public class Order implements Serializable {
+public class ShippingAddress implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -39,32 +36,21 @@ public class Order implements Serializable {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
 
-    @Column(name = "orden_number", nullable = false)
-    private String ordenNumber;
+    @Column(name = "street")
+    private String street;
 
-    @OneToMany(mappedBy = "order")
-    private List<OrderDetail> orderDetails;
+    @Column(name = "city")
+    private String city;
 
-    @Column(name = "total_amount")
-    private double totalAmount;
+    @Column(name = "zip_code")
+    private String zipCode;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @Column(name = "country")
+    private String country;
 
-    @ManyToOne
-    @JoinColumn(name = "shipping_address_id")
-    private ShippingAddress shippingAddress;
-
-    @ManyToMany
-    @JoinTable(name = "order_product",
-            joinColumns = @JoinColumn(name = "order_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id"))
+    @OneToMany(mappedBy = "shippingAddress")
     @ToString.Exclude
-    private List<Product> products;
-
-    @OneToMany(mappedBy = "orders")
-    private List<Payment> payments;
+    private List<Order> orders;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "creation_date", nullable = false)
@@ -84,8 +70,8 @@ public class Order implements Serializable {
         Class<?> oEffectiveClass = o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
         Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
         if (thisEffectiveClass != oEffectiveClass) return false;
-        Order order = (Order) o;
-        return getId() != null && Objects.equals(getId(), order.getId());
+        ShippingAddress that = (ShippingAddress) o;
+        return getId() != null && Objects.equals(getId(), that.getId());
     }
 
     @Override

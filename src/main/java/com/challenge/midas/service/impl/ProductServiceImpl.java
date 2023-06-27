@@ -1,6 +1,6 @@
 package com.challenge.midas.service.impl;
 
-import com.challenge.midas.dto.request.Product.ProductRequest;
+import com.challenge.midas.dto.request.ProductRequest;
 import com.challenge.midas.dto.response.ProductResponse;
 import com.challenge.midas.enums.EExceptionMessage;
 import com.challenge.midas.exception.ProductException;
@@ -48,7 +48,7 @@ public class ProductServiceImpl implements IProductService {
             if (product.isDeleted()) {
                 product.setDeleted(true);
                 product.setModificationDate(new Date());
-                repository.save(optionalProduct.get());
+                repository.save(product);
             } else {
                 throw new ProductException(EExceptionMessage.THE_PRODUCT_COULD_NOT_BE_ENABLED.toString());
             }

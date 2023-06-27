@@ -1,6 +1,6 @@
 package com.challenge.midas.service;
 
-import com.challenge.midas.dto.request.Product.ProductRequest;
+import com.challenge.midas.dto.request.ProductRequest;
 import com.challenge.midas.dto.response.ProductResponse;
 import com.challenge.midas.exception.ProductException;
 import com.challenge.midas.exception.UserException;

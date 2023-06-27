@@ -1,6 +1,6 @@
 package com.challenge.midas.mapper;
 
-import com.challenge.midas.dto.request.Product.ProductRequest;
+import com.challenge.midas.dto.request.ProductRequest;
 import com.challenge.midas.dto.response.ProductResponse;
 import com.challenge.midas.enums.EExceptionMessage;
 import com.challenge.midas.exception.ProductException;
@@ -49,8 +49,8 @@ public class ProductMapper {
         response.setQuantity(product.getQuantity());
         response.setImage(product.getImage());
         response.setUser(product.getUser().getFullName());
-        response.setOrders(product.getOrders());
-        response.setShoppingCarts(product.getShoppingCarts());
+        /*response.setOrders(product.getOrders());
+        response.setShoppingCarts(product.getShoppingCarts());*/
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String stringCreationDate = product.getCreationDate() != null ? sdf.format(product.getCreationDate()) : null;
         String stringModificationDate = product.getModificationDate() != null ? sdf.format(product.getModificationDate()) : null;

@@ -41,13 +41,7 @@ public class Payment implements Serializable {
     private double amount;
 
     @Column(name = "payment_date")
-    private Date paymentDate;
-
-    @Column(name = "payment_type")
-    private String paymentType;
-
-    @Column(name = "state")
-    private String state;
+    private Date paymentDate = new Date();
 
     @ManyToOne
     @JoinColumn(name = "user_id")

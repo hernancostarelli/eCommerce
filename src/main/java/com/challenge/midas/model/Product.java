@@ -12,8 +12,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -52,17 +52,12 @@ public class Product implements Serializable {
     @Column(name = "image")
     private String image;
 
+    @OneToMany(mappedBy = "product")
+    private List<OrderDetail> orderDetails;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
-    @ManyToMany(mappedBy = "products")
-    @ToString.Exclude
-    private List<Order> orders;
-
-    @ManyToMany(mappedBy = "products")
-    @ToString.Exclude
-    private List<ShoppingCart> shoppingCarts;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "creation_date", nullable = false)
