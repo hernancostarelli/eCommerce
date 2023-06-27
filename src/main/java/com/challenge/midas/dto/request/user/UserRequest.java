@@ -1,4 +1,4 @@
-package com.challenge.midas.dto.request.User;
+package com.challenge.midas.dto.request.user;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;

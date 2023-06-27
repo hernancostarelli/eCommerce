@@ -19,7 +19,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -48,10 +47,10 @@ public class Payment implements Serializable {
     @ToString.Exclude
     private User user;
 
-    @ManyToMany
+    @ManyToOne
     @JoinColumn(name = "order_id")
     @ToString.Exclude
-    private List<Order> orders;
+    private Order order;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "creation_date", nullable = false)

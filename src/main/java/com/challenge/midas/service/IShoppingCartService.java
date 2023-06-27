@@ -2,7 +2,9 @@ package com.challenge.midas.service;
 
 import com.challenge.midas.dto.request.ShoppingCartRequest;
 import com.challenge.midas.dto.response.ShoppingCartResponse;
+import com.challenge.midas.exception.ProductException;
 import com.challenge.midas.exception.ShoppingCartException;
+import com.challenge.midas.exception.UserException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,10 +14,10 @@ import java.util.List;
 public interface IShoppingCartService {
 
     @Transactional
-    ShoppingCartResponse create(ShoppingCartRequest request) throws ShoppingCartException;
+    ShoppingCartResponse create(ShoppingCartRequest request) throws ShoppingCartException, UserException, ProductException;
 
     @Transactional
-    ShoppingCartResponse modify(String idShoppingCart, ShoppingCartRequest request) throws ShoppingCartException;
+    ShoppingCartResponse modify(String idShoppingCart, ShoppingCartRequest request) throws ShoppingCartException, UserException, ProductException;
 
     @Transactional
     void enable(String idShoppingCart) throws ShoppingCartException;
@@ -33,7 +35,7 @@ public interface IShoppingCartService {
     List<ShoppingCartResponse> getAll(String value) throws ShoppingCartException;
 
     @Transactional(readOnly = true)
-    List<ShoppingCartResponse> getShoppingCartByUser(String idUser) throws ShoppingCartException;
+    List<ShoppingCartResponse> getShoppingCartByUser(String idUser) throws ShoppingCartException, UserException;
 
     @Transactional(readOnly = true)
     List<ShoppingCartResponse> getForEnable() throws ShoppingCartException;

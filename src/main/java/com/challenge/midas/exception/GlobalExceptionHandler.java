@@ -131,7 +131,6 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, status);
     }
 
-
     @ExceptionHandler(ProductException.class)
     protected ResponseEntity<ErrorResponse> handlerProductException(ProductException exception) {
 
@@ -215,7 +214,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     protected ResponseEntity<ErrorResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException exception) {
         HttpStatus status = HttpStatus.BAD_REQUEST;
-        String typeException = "GENERAL EXCEPTION";
+        String typeException = "REQUEST EXCEPTION";
         List<String> errors = collectErrors(exception);
         ErrorResponse errorResponse = buildErrorResponse(status, status.name(), typeException, EExceptionMessage.REQUEST_WRONG_DATA.toString(), errors);
         return new ResponseEntity<>(errorResponse, status);

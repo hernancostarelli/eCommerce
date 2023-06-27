@@ -7,6 +7,7 @@ import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.proxy.HibernateProxy;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -42,7 +43,7 @@ public class Order implements Serializable {
     @Column(name = "orden_number", nullable = false)
     private String ordenNumber;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderDetail> orderDetails;
 
     @Column(name = "total_amount")
@@ -56,14 +57,7 @@ public class Order implements Serializable {
     @JoinColumn(name = "shipping_address_id")
     private ShippingAddress shippingAddress;
 
-    @ManyToMany
-    @JoinTable(name = "order_product",
-            joinColumns = @JoinColumn(name = "order_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id"))
-    @ToString.Exclude
-    private List<Product> products;
-
-    @OneToMany(mappedBy = "orders")
+    @OneToMany(mappedBy = "order")
     private List<Payment> payments;
 
     @Temporal(TemporalType.TIMESTAMP)

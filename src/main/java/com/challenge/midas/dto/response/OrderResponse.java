@@ -13,7 +13,6 @@ public class OrderResponse {
     private double totalAmount;
     private UserResponse user;
     private ShippingAddressResponse shippingAddress;
-    private List<ProductResponse> products;
     private List<PaymentResponse> payments;
     private String creationDate;
     private String modificationDate;

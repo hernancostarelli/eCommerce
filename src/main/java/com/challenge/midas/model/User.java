@@ -18,7 +18,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.Email;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -45,7 +44,6 @@ public class User implements Serializable {
     @Column(name = "surname", nullable = false)
     private String surname;
 
-    @Email
     @Column(name = "email", nullable = false)
     private String email;
 

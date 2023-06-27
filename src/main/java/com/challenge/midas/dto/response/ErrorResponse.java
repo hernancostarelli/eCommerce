@@ -31,11 +31,11 @@ public class ErrorResponse {
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private List<String> moreInfo;
 
-    public ErrorResponse(int statusCode, String typeException, String message, String moreInfo) {
+    public ErrorResponse(int statusCode, String typeCode, String typeException, String message, String moreInfo) {
         this.statusCode = statusCode;
-        this.typeCode = typeException;
+        this.typeCode = typeCode;
         this.typeException = typeException;
         this.message = message;
-        this.moreInfo = List.of(moreInfo);
+        this.moreInfo = moreInfo != null ? List.of(moreInfo) : null;
     }
 }

@@ -106,7 +106,7 @@ public class ProductMapper {
         }
     }
 
-    private void validateNumbers(ProductRequest request) throws ProductException {
+    public void validateNumbers(ProductRequest request) throws ProductException {
         String stringPrice = request.getPrice();
         String stringQuantity = request.getQuantity();
         double price = Double.parseDouble(stringPrice);

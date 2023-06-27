@@ -1,8 +1,11 @@
 package com.challenge.midas.mapper;
 
 import com.challenge.midas.dto.request.OrderRequest;
+import com.challenge.midas.dto.request.ShippingAddressRequest;
 import com.challenge.midas.dto.response.OrderResponse;
 import com.challenge.midas.model.Order;
+import com.challenge.midas.model.OrderDetail;
+import com.challenge.midas.model.Payment;
 import com.challenge.midas.repository.OrderRepository;
 import com.challenge.midas.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +14,7 @@ import org.springframework.stereotype.Component;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -23,6 +27,12 @@ public class OrderMapper {
 
     public Order convertToEntity(Order order, OrderRequest request) {
 
+        /*private List<OrderDetail> orderDetails;
+        private String totalAmount;
+        private String idUser;
+        private ShippingAddressRequest shippingAddress;
+        private List<Payment> payments;*/
+
         order.setOrdenNumber(generateOrderNumber());
         double totalAmount = Double.parseDouble(request.getTotalAmount());
         order.setTotalAmount(totalAmount);
@@ -30,11 +40,10 @@ public class OrderMapper {
 
         //order.setShippingAddress(request.getShippingAddress());
 
-        order.setProducts(request.getProducts());
-        order.setPayments(request.getPayments());
+        //order.setPayment(request.getPayments());
 
 
-        /*List<OrderDetail> orderDetails = new ArrayList<>();
+       /* List<OrderDetail> orderDetails = new ArrayList<>();
         for (OrderDetailRequest orderDetailRequest : request.getOrderDetails()) {
             OrderDetail orderDetail = orderDetailRequestToOrderDetailConverter.convert(orderDetailRequest);
             orderDetails.add(orderDetail);
@@ -52,7 +61,7 @@ public class OrderMapper {
 
         //orderResponse.setShippingAddress(order.getShippingAddress());
 
-        orderResponse.setProducts(productMapper.convertToResponseList(order.getProducts()));
+        //orderResponse.setProducts(productMapper.convertToResponseList(order.getProducts()));
 
         //orderResponse.setPayments(order.getPayments());
 
@@ -66,11 +75,9 @@ public class OrderMapper {
     }
 
     public List<OrderResponse> convertToResponseList(List<Order> orderList) {
-        List<OrderResponse> orderResponseList = new ArrayList<>();
-        for (Order entity : orderList) {
-            orderResponseList.add(this.convertToResponse(entity));
-        }
-        return orderResponseList;
+        return orderList.stream()
+                .map(this::convertToResponse)
+                .collect(Collectors.toList());
     }
 
     private String generateOrderNumber() {
