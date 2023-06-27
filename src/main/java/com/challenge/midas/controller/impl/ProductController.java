@@ -57,19 +57,19 @@ public class ProductController implements IProductController {
 
     @Override
     public ResponseEntity<List<ProductResponse>> getAll(String value) throws ProductException {
-        List<ProductResponse> response = service.getAll(value);
-        return ResponseEntity.ok(response);
+        List<ProductResponse> responses = service.getAll(value);
+        return ResponseEntity.ok(responses);
     }
 
     @Override
     public ResponseEntity<List<ProductResponse>> getForEnable() throws ProductException {
-        List<ProductResponse> response = service.getForEnable();
-        return ResponseEntity.ok(response);
+        List<ProductResponse> responses = service.getForEnable();
+        return ResponseEntity.ok(responses);
     }
 
     @Override
     public ResponseEntity<List<ProductResponse>> getForDisable() throws ProductException {
-        List<ProductResponse> response = service.getForDisable();
-        return ResponseEntity.ok(response);
+        List<ProductResponse> responses = service.getForDisable();
+        return ResponseEntity.ok(responses);
     }
 }
