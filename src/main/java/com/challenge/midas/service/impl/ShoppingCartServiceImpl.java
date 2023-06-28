@@ -117,7 +117,7 @@ public class ShoppingCartServiceImpl implements IShoppingCartService {
         if (optionalUser.isEmpty()) {
             throw new UserException(EExceptionMessage.USER_NOT_FOUND.toString());
         }
-        List<ShoppingCart> shoppingCartList = repository.getOrderByUser(idUser);
+        List<ShoppingCart> shoppingCartList = repository.getShoppingCartLByUser(idUser);
         if (shoppingCartList.isEmpty()) {
             throw new ShoppingCartException(EExceptionMessage.SHOPPING_CART_NOT_FOUND.toString());
         }

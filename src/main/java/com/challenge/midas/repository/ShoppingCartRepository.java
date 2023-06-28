@@ -16,7 +16,7 @@ public interface ShoppingCartRepository extends JpaRepository<ShoppingCart, Stri
     List<ShoppingCart> getByValue(String value);
 
     @Query("select s from ShoppingCart s where s.user.id = ?1")
-    List<ShoppingCart> getOrderByUser(String idUser);
+    List<ShoppingCart> getShoppingCartLByUser(String idUser);
 
     @Query("SELECT s FROM ShoppingCart s WHERE s.deleted = false ORDER BY s.user.surname ASC")
     List<ShoppingCart> getByEnable();

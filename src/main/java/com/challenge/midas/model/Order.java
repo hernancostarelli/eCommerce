@@ -13,10 +13,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -57,8 +56,8 @@ public class Order implements Serializable {
     @JoinColumn(name = "shipping_address_id")
     private ShippingAddress shippingAddress;
 
-    @OneToMany(mappedBy = "order")
-    private List<Payment> payments;
+    @OneToOne(mappedBy = "order")
+    private Payment payment;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "creation_date", nullable = false)

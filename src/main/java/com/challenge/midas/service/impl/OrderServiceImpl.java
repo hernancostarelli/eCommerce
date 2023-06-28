@@ -4,6 +4,9 @@ import com.challenge.midas.dto.request.OrderRequest;
 import com.challenge.midas.dto.response.OrderResponse;
 import com.challenge.midas.enums.EExceptionMessage;
 import com.challenge.midas.exception.OrderException;
+import com.challenge.midas.exception.ProductException;
+import com.challenge.midas.exception.ShippingAddressException;
+import com.challenge.midas.exception.ShoppingCartException;
 import com.challenge.midas.exception.UserException;
 import com.challenge.midas.mapper.OrderMapper;
 import com.challenge.midas.model.Order;
@@ -28,13 +31,13 @@ public class OrderServiceImpl implements IOrderService {
 
 
     @Override
-    public OrderResponse create(OrderRequest request) throws OrderException {
+    public OrderResponse create(OrderRequest request) throws OrderException, UserException, ShoppingCartException, ShippingAddressException, ProductException {
         Order order = mapper.convertToEntity(new Order(), request);
         return mapper.convertToResponse(repository.save(order));
     }
 
     @Override
-    public OrderResponse modify(String idOrder, OrderRequest request) throws OrderException {
+    public OrderResponse modify(String idOrder, OrderRequest request) throws OrderException, UserException, ShoppingCartException, ShippingAddressException, ProductException {
         Optional<Order> optionalOrder = repository.findById(idOrder);
         if (optionalOrder.isPresent()) {
             Order order = mapper.convertToEntity(optionalOrder.get(), request);

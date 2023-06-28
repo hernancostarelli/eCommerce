@@ -38,6 +38,8 @@ public class ShoppingCartMapper {
             productList.add(product);
         }
         shoppingCart.setUser(user);
+        user.getShoppingCarts().add(shoppingCart);
+        userRepository.save(user);
         shoppingCart.setProducts(productList);
         if (shoppingCart.getId() != null) {
             shoppingCart.setModificationDate(new Date());

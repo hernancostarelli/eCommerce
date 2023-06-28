@@ -1,17 +1,17 @@
 package com.challenge.midas.dto.request;
 
-import com.challenge.midas.model.OrderDetail;
-import com.challenge.midas.model.Payment;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-
-import java.util.List;
 
 @Data
 public class OrderRequest {
 
-    private List<OrderDetail> orderDetails;
-    private String totalAmount;
+    @JsonProperty("idUser")
     private String idUser;
+
+    @JsonProperty("idShoppingCart")
+    private String idShoppingCart;
+
+    @JsonProperty("shippingAddress")
     private ShippingAddressRequest shippingAddress;
-    private List<Payment> payments;
 }
