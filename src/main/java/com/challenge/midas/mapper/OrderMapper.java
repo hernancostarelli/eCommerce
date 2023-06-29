@@ -18,7 +18,6 @@ import com.challenge.midas.repository.OrderRepository;
 import com.challenge.midas.repository.ProductRepository;
 import com.challenge.midas.repository.ShoppingCartRepository;
 import com.challenge.midas.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
@@ -29,7 +28,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
-@RequiredArgsConstructor
 public class OrderMapper {
 
     public static final String DD_MM_YYYY = "dd/MM/yyyy";
@@ -41,6 +39,19 @@ public class OrderMapper {
     private final ShippingAddressMapper shippingAddressMapper;
     private final OrderDetailMapper orderDetailMapper;
     private final PaymentMapper paymentMapper;
+
+    public OrderMapper(UserMapper userMapper, OrderRepository repository, UserRepository userRepository, ProductRepository productRepository,
+                       ShoppingCartRepository shoppingCartRepository, ShippingAddressMapper shippingAddressMapper,
+                       OrderDetailMapper orderDetailMapper, PaymentMapper paymentMapper) {
+        this.userMapper = userMapper;
+        this.repository = repository;
+        this.userRepository = userRepository;
+        this.productRepository = productRepository;
+        this.shoppingCartRepository = shoppingCartRepository;
+        this.shippingAddressMapper = shippingAddressMapper;
+        this.orderDetailMapper = orderDetailMapper;
+        this.paymentMapper = paymentMapper;
+    }
 
     public Order convertToEntity(Order order, OrderRequest request) throws UserException, ShoppingCartException, ProductException, ShippingAddressException {
         order.setOrdenNumber(generateOrderNumber());
@@ -72,7 +83,7 @@ public class OrderMapper {
         orderResponse.setTotalAmount(order.getTotalAmount());
         orderResponse.setUser(userMapper.convertToResponse(order.getUser()));
         orderResponse.setShippingAddress(shippingAddressMapper.convertToResponse(order.getShippingAddress()));
-        orderResponse.setPayments(paymentMapper.converToResponse(order.getPayment()));
+        orderResponse.setPayments(paymentMapper.convertToResponse(order.getPayment()));
         orderResponse.setCreationDate(order.getCreationDate() != null ?
                 new SimpleDateFormat(DD_MM_YYYY).format(order.getCreationDate()) : null);
         orderResponse.setModificationDate(order.getModificationDate() != null ?

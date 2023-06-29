@@ -3,6 +3,7 @@ package com.challenge.midas.service;
 import com.challenge.midas.dto.request.PaymentRequest;
 import com.challenge.midas.dto.response.PaymentResponse;
 import com.challenge.midas.exception.PaymentException;
+import com.challenge.midas.exception.UserException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,7 +34,7 @@ public interface IPaymentService {
     List<PaymentResponse> getAll(String value) throws PaymentException;
 
     @Transactional(readOnly = true)
-    List<PaymentResponse> gePaymentByUser(String idUser) throws PaymentException;
+    List<PaymentResponse> gePaymentByUser(String idUser) throws PaymentException, UserException;
 
     @Transactional(readOnly = true)
     List<PaymentResponse> getForEnable() throws PaymentException;

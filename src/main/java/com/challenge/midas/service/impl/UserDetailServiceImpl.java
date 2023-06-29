@@ -3,6 +3,7 @@ package com.challenge.midas.service.impl;
 import com.challenge.midas.enums.EExceptionMessage;
 import com.challenge.midas.model.User;
 import com.challenge.midas.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,13 +18,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class UserDetailServiceImpl implements UserDetailsService {
 
     private final UserRepository repository;
-
-    public UserDetailServiceImpl(UserRepository repository) {
-        this.repository = repository;
-    }
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {

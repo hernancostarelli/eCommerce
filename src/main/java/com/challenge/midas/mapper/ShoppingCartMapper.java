@@ -10,8 +10,8 @@ import com.challenge.midas.model.Product;
 import com.challenge.midas.model.ShoppingCart;
 import com.challenge.midas.model.User;
 import com.challenge.midas.repository.ProductRepository;
+import com.challenge.midas.repository.ShoppingCartRepository;
 import com.challenge.midas.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
@@ -21,12 +21,18 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-@RequiredArgsConstructor
 public class ShoppingCartMapper {
 
     public static final String DD_MM_YYYY = "dd/MM/yyyy";
     private final UserRepository userRepository;
     private final ProductRepository productRepository;
+    private final ShoppingCartRepository repository;
+
+    public ShoppingCartMapper(UserRepository userRepository, ProductRepository productRepository, ShoppingCartRepository repository) {
+        this.userRepository = userRepository;
+        this.productRepository = productRepository;
+        this.repository = repository;
+    }
 
     public ShoppingCart convertToEntity(ShoppingCart shoppingCart, ShoppingCartRequest request) throws UserException, ProductException {
         User user = userRepository.findById(request.getIdUser())
@@ -44,6 +50,7 @@ public class ShoppingCartMapper {
         if (shoppingCart.getId() != null) {
             shoppingCart.setModificationDate(new Date());
         }
+        repository.save(shoppingCart);
         return shoppingCart;
     }
 

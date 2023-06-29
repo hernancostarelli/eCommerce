@@ -5,12 +5,10 @@ import com.challenge.midas.dto.response.ShippingAddressResponse;
 import com.challenge.midas.enums.EExceptionMessage;
 import com.challenge.midas.exception.ShippingAddressException;
 import com.challenge.midas.model.ShippingAddress;
-import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 @Component
-@RequiredArgsConstructor
 public class ShippingAddressMapper {
 
     public ShippingAddress convertToEntity(ShippingAddress shippingAddress, ShippingAddressRequest request) throws ShippingAddressException {

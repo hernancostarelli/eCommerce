@@ -8,7 +8,6 @@ import com.challenge.midas.exception.UserException;
 import com.challenge.midas.model.Product;
 import com.challenge.midas.model.User;
 import com.challenge.midas.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
@@ -19,10 +18,13 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
-@RequiredArgsConstructor
 public class ProductMapper {
 
     private final UserRepository userRepository;
+
+    public ProductMapper(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public Product convertToEntity(Product product, ProductRequest request) throws ProductException, UserException {
         validateRequest(request);
