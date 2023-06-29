@@ -42,6 +42,7 @@ public enum EExceptionMessage {
     THE_PRODUCT_QUANTITY_MUST_BE_POSITIVE("LA CANTIDAD DE PRODUCTOS TIENE QUE SER MAYOR A 0"),
     THE_PRODUCT_COULD_NOT_BE_DISABLE("EL PRODUCTO NO PUDO SER DESHABILITADO"),
     THE_PRODUCT_LIST_IS_EMPTY("LA LISTA DE PRODUCTOS ESTA VACÍA"),
+    THE_QUANTITY_OF_PRODUCTS_EXCEEDED_STOCK("LA CANTIDAD DE PRODUCTOS SUPERO EL STOCK"),
     //!//////////////////////////////////////////////////////////////////////////////////////////
     //! ORDER EXCEPTION MESSAGE
     //!//////////////////////////////////////////////////////////////////////////////////////////

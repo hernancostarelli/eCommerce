@@ -17,7 +17,9 @@ import org.springframework.stereotype.Component;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Component
@@ -38,15 +40,27 @@ public class ShoppingCartMapper {
         User user = userRepository.findById(request.getIdUser())
                 .orElseThrow(() -> new UserException(EExceptionMessage.USER_NOT_FOUND.getMessage()));
         List<Product> productList = new ArrayList<>();
-        for (String idProduct : request.getIdProducts()) {
-            Product product = productRepository.findById(idProduct)
+        Map<String, Integer> productQuantities = new HashMap<>();
+        for (String productId : request.getIdProducts()) {
+            Product product = productRepository.findById(productId)
                     .orElseThrow(() -> new ProductException(EExceptionMessage.PRODUCT_NOT_FOUND.getMessage()));
+            productQuantities.put(productId, productQuantities.getOrDefault(productId, 0) + 1);
+            if (productQuantities.get(productId) > product.getQuantity()) {
+                throw new ProductException(EExceptionMessage.THE_QUANTITY_OF_PRODUCTS_EXCEEDED_STOCK.getMessage());
+            }
             productList.add(product);
+        }
+        for (Product product : productList) {
+            int desiredQuantity = productQuantities.get(product.getId());
+            int currentStock = product.getQuantity();
+            int updatedStock = currentStock - desiredQuantity;
+            product.setQuantity(updatedStock);
+            productRepository.save(product);
         }
         shoppingCart.setUser(user);
         user.getShoppingCarts().add(shoppingCart);
         userRepository.save(user);
-        shoppingCart.setProducts(productList);
+        shoppingCart.getProducts().addAll(productList);
         if (shoppingCart.getId() != null) {
             shoppingCart.setModificationDate(new Date());
         }
