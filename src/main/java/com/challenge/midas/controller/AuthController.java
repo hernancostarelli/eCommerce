@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static com.challenge.midas.config.ApiEndpoints.AUTHENTICATION_URI;
+
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping(AUTHENTICATION_URI)
 @RequiredArgsConstructor
 public class AuthController {
 
@@ -25,7 +27,7 @@ public class AuthController {
     private final UserDetailsService userDetailsService;
     private final JwtUtil jwtUtil;
 
-    @PostMapping("/api/auth/login")
+    @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody AuthenticationRequest request) {
         try {
 

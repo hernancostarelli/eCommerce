@@ -11,7 +11,6 @@ import com.challenge.midas.repository.UserRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,6 +20,7 @@ import java.util.Optional;
 @Component
 public class ProductMapper {
 
+    public static final String DD_MM_YYYY = "dd/MM/yyyy";
     private final UserRepository userRepository;
 
     public ProductMapper(UserRepository userRepository) {
@@ -32,8 +32,7 @@ public class ProductMapper {
         product.setName((request.getName()));
         product.setDescription((request.getDescription()));
         validateNumbers(request);
-        double price = Double.parseDouble(request.getPrice());
-        product.setPrice(price);
+        product.setPrice(request.getPrice());
         int quantity = Integer.parseInt(request.getQuantity());
         product.setQuantity(quantity);
         product.setImage((request.getImage()));
@@ -49,17 +48,16 @@ public class ProductMapper {
         response.setName(product.getName());
         response.setDescription(product.getDescription());
 
-        String stringPrice = getPrice(product);
-        response.setPrice(Double.parseDouble(stringPrice));
+        String formattedPrice = String.format("%.2f", product.getPrice());
+        response.setPrice(formattedPrice);
 
         response.setQuantity(product.getQuantity());
         response.setImage(product.getImage());
         response.setUser(product.getUser().getFullName());
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        String stringCreationDate = product.getCreationDate() != null ? sdf.format(product.getCreationDate()) : null;
-        String stringModificationDate = product.getModificationDate() != null ? sdf.format(product.getModificationDate()) : null;
-        response.setCreationDate(stringCreationDate);
-        response.setModificationDate(stringModificationDate);
+        response.setCreationDate(product.getCreationDate() != null ?
+                new SimpleDateFormat(DD_MM_YYYY).format(product.getCreationDate()) : null);
+        response.setModificationDate(product.getModificationDate() != null ?
+                new SimpleDateFormat(DD_MM_YYYY).format(product.getModificationDate()) : null);
         response.setDeleted(String.valueOf(product.isDeleted()));
         return response;
     }
@@ -75,7 +73,7 @@ public class ProductMapper {
     private void validateRequest(ProductRequest request) throws ProductException {
         String name = request.getName();
         String description = request.getDescription();
-        String price = request.getPrice();
+        String price = Double.toString(request.getPrice());
         String quantity = request.getQuantity();
         String image = request.getImage();
         if (StringUtils.isBlank(name))
@@ -111,7 +109,7 @@ public class ProductMapper {
     }
 
     public void validateNumbers(ProductRequest request) throws ProductException {
-        String stringPrice = request.getPrice();
+        String stringPrice = Double.toString(request.getPrice());
         String stringQuantity = request.getQuantity();
         double price = Double.parseDouble(stringPrice);
         int quantity = Integer.parseInt(stringQuantity);
@@ -119,11 +117,5 @@ public class ProductMapper {
             throw new ProductException(EExceptionMessage.THE_PRODUCT_PRICE_MUST_BE_POSITIVE.toString());
         if (quantity <= 0)
             throw new ProductException(EExceptionMessage.THE_PRODUCT_QUANTITY_MUST_BE_POSITIVE.toString());
-    }
-
-    private static String getPrice(Product product) {
-        DecimalFormat df = new DecimalFormat("#.##");
-        double price = product.getPrice();
-        return df.format(price);
     }
 }

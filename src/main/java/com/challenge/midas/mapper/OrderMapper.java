@@ -20,7 +20,6 @@ import com.challenge.midas.repository.ShoppingCartRepository;
 import com.challenge.midas.repository.UserRepository;
 import org.springframework.stereotype.Component;
 
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
@@ -81,8 +80,8 @@ public class OrderMapper {
         response.setOrdenNumber(order.getOrdenNumber());
         response.setOrderDetails(orderDetailMapper.convertToResponseList(order.getOrderDetails()));
 
-        String stringTotalAmount = getTotalAmount(order);
-        response.setTotalAmount(Double.parseDouble(stringTotalAmount));
+        String formattedTotalAmount = String.format("%.2f", order.getTotalAmount());
+        response.setTotalAmount(formattedTotalAmount);
 
         response.setUser(userMapper.convertToResponse(order.getUser()));
         response.setShippingAddress(shippingAddressMapper.convertToResponse(order.getShippingAddress()));
@@ -147,11 +146,5 @@ public class OrderMapper {
     private ShippingAddress getShippingAddress(OrderRequest request) throws ShippingAddressException {
         ShippingAddressRequest shippingAddressRequest = request.getShippingAddress();
         return shippingAddressMapper.convertToEntity(new ShippingAddress(), shippingAddressRequest);
-    }
-
-    private static String getTotalAmount(Order order) {
-        DecimalFormat df = new DecimalFormat("#.##");
-        double totalAmount = order.getTotalAmount();
-        return df.format(totalAmount);
     }
 }

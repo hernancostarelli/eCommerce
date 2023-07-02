@@ -18,7 +18,7 @@ public class OrderResponse {
     private List<OrderDetailResponse> orderDetails;
 
     @JsonProperty("Total de la orden")
-    private double totalAmount;
+    private String totalAmount;
 
     @JsonProperty("Cliente")
     private UserResponse user;

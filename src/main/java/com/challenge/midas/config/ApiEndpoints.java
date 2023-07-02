@@ -9,6 +9,7 @@ public class ApiEndpoints {
     public static final String PAYMENT_URI = "/api/payment";
     public static final String ORDER_URI = "/api/order";
     public static final String ORDER_DETAIL_URI = "/api/order-detail";
+    public static final String AUTHENTICATION_URI = "/api/authentication";
 
     private ApiEndpoints() {
     }

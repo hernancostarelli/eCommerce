@@ -5,7 +5,6 @@ import com.challenge.midas.dto.response.OrderDetailResponse;
 import com.challenge.midas.model.OrderDetail;
 import org.springframework.stereotype.Component;
 
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,8 +27,8 @@ public class OrderDetailMapper {
         response.setId(orderDetail.getId());
         response.setQuantity(orderDetail.getQuantity());
 
-        String stringUnitPrice = getUnitPrice(orderDetail);
-        response.setUnitPrice(Double.parseDouble(stringUnitPrice));
+        String formattedUnitPrice = String.format("%.2f", orderDetail.getUnitPrice());
+        response.setUnitPrice(formattedUnitPrice);
 
         response.setProduct(orderDetail.getProduct());
         response.setOrder(orderDetail.getOrder());
@@ -47,11 +46,5 @@ public class OrderDetailMapper {
             responseList.add(convertToResponse(orderDetail));
         }
         return responseList;
-    }
-
-    private static String getUnitPrice(OrderDetail orderDetail) {
-        DecimalFormat df = new DecimalFormat("#.##");
-        double unitPrice = orderDetail.getUnitPrice();
-        return df.format(unitPrice);
     }
 }

@@ -10,7 +10,7 @@ public class PaymentResponse {
     private String id;
 
     @JsonProperty("Monto total del pago")
-    private double amount;
+    private String amount;
 
     @JsonProperty("Fecha del pago")
     private String paymentDate;

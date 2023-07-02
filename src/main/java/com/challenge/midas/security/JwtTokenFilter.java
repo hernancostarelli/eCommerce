@@ -1,6 +1,7 @@
 package com.challenge.midas.security;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class JwtTokenFilter extends OncePerRequestFilter {
 
     private final JwtUtil jwtUtil;

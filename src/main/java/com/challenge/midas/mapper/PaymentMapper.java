@@ -10,7 +10,6 @@ import com.challenge.midas.repository.UserRepository;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Optional;
@@ -48,8 +47,8 @@ public class PaymentMapper {
         PaymentResponse response = new PaymentResponse();
         response.setId(payment.getId());
 
-        String stringAmount = getAmount(payment);
-        response.setAmount(Double.parseDouble(stringAmount));
+        String formattedAmount = String.format("%.2f", payment.getAmount());
+        response.setAmount(formattedAmount);
 
         response.setPaymentDate(payment.getPaymentDate() != null ?
                 new SimpleDateFormat(DD_MM_YYYY).format(payment.getPaymentDate()) : null);
@@ -67,11 +66,5 @@ public class PaymentMapper {
         return paymentList.stream()
                 .map(this::convertToResponse)
                 .collect(Collectors.toList());
-    }
-
-    private static String getAmount(Payment payment) {
-        DecimalFormat df = new DecimalFormat("#.##");
-        double amount = payment.getAmount();
-        return df.format(amount);
     }
 }

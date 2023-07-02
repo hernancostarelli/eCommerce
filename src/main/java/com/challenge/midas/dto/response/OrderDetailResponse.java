@@ -17,7 +17,7 @@ public class OrderDetailResponse {
     private int quantity;
 
     @JsonProperty("Precio unitario")
-    private double unitPrice;
+    private String unitPrice;
 
     @JsonProperty("Producto")
     private Product product;

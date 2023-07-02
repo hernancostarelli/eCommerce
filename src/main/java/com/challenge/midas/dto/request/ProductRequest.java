@@ -17,7 +17,7 @@ public class ProductRequest {
     private String description;
 
     @JsonProperty("price")
-    private String price;
+    private double price;
 
     @JsonProperty("quantity")
     private String quantity;
