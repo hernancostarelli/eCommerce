@@ -83,7 +83,7 @@ public class OrderMapper {
         orderResponse.setTotalAmount(order.getTotalAmount());
         orderResponse.setUser(userMapper.convertToResponse(order.getUser()));
         orderResponse.setShippingAddress(shippingAddressMapper.convertToResponse(order.getShippingAddress()));
-        orderResponse.setPayments(paymentMapper.convertToResponse(order.getPayment()));
+        orderResponse.setPayment(paymentMapper.convertToResponse(order.getPayment()));
         orderResponse.setCreationDate(order.getCreationDate() != null ?
                 new SimpleDateFormat(DD_MM_YYYY).format(order.getCreationDate()) : null);
         orderResponse.setModificationDate(order.getModificationDate() != null ?

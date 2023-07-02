@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 public class PaymentResponse {
 
-    @JsonProperty("ID del pago")
+    @JsonProperty("Id del pago")
     private String id;
 
     @JsonProperty("Monto total del pago")
@@ -15,16 +15,16 @@ public class PaymentResponse {
     @JsonProperty("Fecha del pago")
     private String paymentDate;
 
-    @JsonProperty("Nombre del Cliente que realiza el pago")
+    @JsonProperty("Nombre del Cliente")
     private String user;
 
     @JsonProperty("Detalle de la orden de pago")
     private OrderResponse order;
 
-    @JsonProperty("Fecha de creación del Pago")
+    @JsonProperty("Fecha de creación")
     private String creationDate;
 
-    @JsonProperty("Última modificación del Pago")
+    @JsonProperty("Última modificación")
     private String modificationDate;
 
     @JsonProperty("Pago deshabilitado")

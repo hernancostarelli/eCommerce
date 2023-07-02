@@ -24,10 +24,10 @@ public class UserResponse {
     @JsonProperty("Rol del Cliente")
     private String role;
 
-    @JsonProperty("Fecha de creación del Cliente")
+    @JsonProperty("Fecha de creación")
     private String creationDate;
 
-    @JsonProperty("Última modificación del Cliente")
+    @JsonProperty("Última modificación")
     private String modificationDate;
 
     @JsonProperty("Cliente deshabilitado")

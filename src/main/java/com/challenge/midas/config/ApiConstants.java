@@ -5,4 +5,5 @@ public interface ApiConstants {
     String USER_URI = "/api/user";
     String PRODUCT_URI = "/api/product";
     String SHOPPING_CARD_URI = "/api/shopping-card";
+    String SHIPPING_ADDRESS_URI = "/api/shipping-address";
 }

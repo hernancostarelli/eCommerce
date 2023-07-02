@@ -9,8 +9,8 @@ import javax.validation.constraints.NotBlank;
 @RequiredArgsConstructor
 public class AuthenticationRequest {
 
-        @NotBlank(message = "El nombre de usuario no debe estar vacío")
+        @NotBlank(message = "EL NOMBRE DE USUARIO NO DEBE ESTAR VACÍO")
         private String email;
-        @NotBlank(message = "La contraseña no debe estar vacía")
+        @NotBlank(message = "DEBE INGRESAR UNA CONTRASEÑA")
         private String password;
 }

@@ -3,6 +3,7 @@ package com.challenge.midas.service;
 import com.challenge.midas.dto.request.ShippingAddressRequest;
 import com.challenge.midas.dto.response.ShippingAddressResponse;
 import com.challenge.midas.exception.ShippingAddressException;
+import com.challenge.midas.exception.UserException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,7 +34,7 @@ public interface IShippingAddressService {
     List<ShippingAddressResponse> getAll(String value) throws ShippingAddressException;
 
     @Transactional(readOnly = true)
-    List<ShippingAddressResponse> getShippingAddressByUser(String idUser) throws ShippingAddressException;
+    List<ShippingAddressResponse> getShippingAddressByUser(String idUser) throws ShippingAddressException, UserException;
 
     @Transactional(readOnly = true)
     List<ShippingAddressResponse> getForEnable() throws ShippingAddressException;
