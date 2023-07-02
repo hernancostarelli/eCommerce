@@ -3,7 +3,6 @@ package com.challenge.midas.controller;
 import com.challenge.midas.dto.request.OrderDetailRequest;
 import com.challenge.midas.dto.response.OrderDetailResponse;
 import com.challenge.midas.exception.OrderDetailException;
-import com.challenge.midas.exception.UserException;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +23,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-import static com.challenge.midas.config.ApiConstants.ORDER_DETAIL_URI;
+import static com.challenge.midas.config.ApiEndpoints.ORDER_DETAIL_URI;
 
 @Validated
 @Tag(name = "ORDER DETAIL CONTROLLER")

@@ -24,7 +24,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-import static com.challenge.midas.config.ApiConstants.SHIPPING_ADDRESS_URI;
+import static com.challenge.midas.config.ApiEndpoints.SHIPPING_ADDRESS_URI;
 
 @Validated
 @Tag(name = "SHIPPING ADDRESS CONTROLLER")

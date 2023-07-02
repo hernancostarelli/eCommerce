@@ -18,7 +18,6 @@ public class OrderDetailController implements IOrderDetailController {
 
     private final IOrderDetailService service;
 
-
     @Override
     public ResponseEntity<OrderDetailResponse> create(OrderDetailRequest request) throws OrderDetailException {
         OrderDetailResponse response = service.create(request);

@@ -26,7 +26,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-import static com.challenge.midas.config.ApiConstants.USER_URI;
+import static com.challenge.midas.config.ApiEndpoints.USER_URI;
 
 @Validated
 @Tag(name = "USER CONTROLLER")

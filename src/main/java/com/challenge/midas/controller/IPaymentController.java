@@ -24,7 +24,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-import static com.challenge.midas.config.ApiConstants.PAYMENT_URI;
+import static com.challenge.midas.config.ApiEndpoints.PAYMENT_URI;
 
 @Validated
 @Tag(name = "PAYMENT CONTROLLER")

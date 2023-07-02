@@ -27,7 +27,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-import static com.challenge.midas.config.ApiConstants.ORDER_URI;
+import static com.challenge.midas.config.ApiEndpoints.ORDER_URI;
 
 @Validated
 @Tag(name = "ORDER CONTROLLER")

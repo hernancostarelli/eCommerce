@@ -25,7 +25,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-import static com.challenge.midas.config.ApiConstants.SHOPPING_CARD_URI;
+import static com.challenge.midas.config.ApiEndpoints.SHOPPING_CARD_URI;
 
 @Validated
 @Tag(name = "SHOPPING CART CONTROLLER")
