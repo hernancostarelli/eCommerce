@@ -1,11 +1,7 @@
 package com.challenge.midas.dto.response;
 
-import com.challenge.midas.model.Order;
-import com.challenge.midas.model.ShoppingCart;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-
-import java.util.List;
 
 @Data
 public class ProductResponse {
@@ -30,12 +26,6 @@ public class ProductResponse {
 
     @JsonProperty("Nombre del Vendedor")
     private String user;
-
-    @JsonProperty("Órdenes en las que se encuentra el producto")
-    private List<Order> orders;
-
-    @JsonProperty("Carritos de compras en los que se encuentra el producto")
-    private List<ShoppingCart> shoppingCarts;
 
     @JsonProperty("Fecha de creación")
     private String creationDate;

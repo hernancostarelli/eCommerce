@@ -10,6 +10,7 @@ import com.challenge.midas.repository.UserRepository;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Optional;
@@ -46,7 +47,10 @@ public class PaymentMapper {
     public PaymentResponse convertToResponse(Payment payment) {
         PaymentResponse response = new PaymentResponse();
         response.setId(payment.getId());
-        response.setAmount(payment.getAmount());
+
+        String stringAmount = getAmount(payment);
+        response.setAmount(Double.parseDouble(stringAmount));
+
         response.setPaymentDate(payment.getPaymentDate() != null ?
                 new SimpleDateFormat(DD_MM_YYYY).format(payment.getPaymentDate()) : null);
         response.setUser(payment.getUser().getFullName());
@@ -63,5 +67,11 @@ public class PaymentMapper {
         return paymentList.stream()
                 .map(this::convertToResponse)
                 .collect(Collectors.toList());
+    }
+
+    private static String getAmount(Payment payment) {
+        DecimalFormat df = new DecimalFormat("#.##");
+        double amount = payment.getAmount();
+        return df.format(amount);
     }
 }

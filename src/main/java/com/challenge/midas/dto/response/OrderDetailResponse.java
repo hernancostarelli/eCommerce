@@ -26,11 +26,11 @@ public class OrderDetailResponse {
     private Order order;
 
     @JsonProperty("Fecha de creación")
-    private Date creationDate;
+    private String creationDate;
 
     @JsonProperty("Fecha de modificación")
-    private Date modificationDate;
+    private String modificationDate;
 
     @JsonProperty("Detalle de orden deshabilitado")
-    private boolean deleted;
+    private String deleted;
 }

@@ -20,6 +20,7 @@ import com.challenge.midas.repository.ShoppingCartRepository;
 import com.challenge.midas.repository.UserRepository;
 import org.springframework.stereotype.Component;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
@@ -65,7 +66,6 @@ public class OrderMapper {
                 order.setTotalAmount(totalAmount);
                 order.setUser(optionalUser.get());
                 order.setShippingAddress(getShippingAddress(request));
-                repository.save(order);
             } else {
                 throw new ShoppingCartException(EExceptionMessage.SHOPPING_CART_NOT_FOUND.getMessage());
             }
@@ -76,20 +76,23 @@ public class OrderMapper {
     }
 
     public OrderResponse convertToResponse(Order order) {
-        OrderResponse orderResponse = new OrderResponse();
-        orderResponse.setId(order.getId());
-        orderResponse.setOrdenNumber(order.getOrdenNumber());
-        orderResponse.setOrderDetails(orderDetailMapper.convertToResponseList(order.getOrderDetails()));
-        orderResponse.setTotalAmount(order.getTotalAmount());
-        orderResponse.setUser(userMapper.convertToResponse(order.getUser()));
-        orderResponse.setShippingAddress(shippingAddressMapper.convertToResponse(order.getShippingAddress()));
-        orderResponse.setPayment(paymentMapper.convertToResponse(order.getPayment()));
-        orderResponse.setCreationDate(order.getCreationDate() != null ?
+        OrderResponse response = new OrderResponse();
+        response.setId(order.getId());
+        response.setOrdenNumber(order.getOrdenNumber());
+        response.setOrderDetails(orderDetailMapper.convertToResponseList(order.getOrderDetails()));
+
+        String stringTotalAmount = getTotalAmount(order);
+        response.setTotalAmount(Double.parseDouble(stringTotalAmount));
+
+        response.setUser(userMapper.convertToResponse(order.getUser()));
+        response.setShippingAddress(shippingAddressMapper.convertToResponse(order.getShippingAddress()));
+        response.setPayment(paymentMapper.convertToResponse(order.getPayment()));
+        response.setCreationDate(order.getCreationDate() != null ?
                 new SimpleDateFormat(DD_MM_YYYY).format(order.getCreationDate()) : null);
-        orderResponse.setModificationDate(order.getModificationDate() != null ?
+        response.setModificationDate(order.getModificationDate() != null ?
                 new SimpleDateFormat(DD_MM_YYYY).format(order.getModificationDate()) : null);
-        orderResponse.setDeleted(String.valueOf(order.isDeleted()));
-        return orderResponse;
+        response.setDeleted(String.valueOf(order.isDeleted()));
+        return response;
     }
 
     public List<OrderResponse> convertToResponseList(List<Order> orderList) {
@@ -144,5 +147,11 @@ public class OrderMapper {
     private ShippingAddress getShippingAddress(OrderRequest request) throws ShippingAddressException {
         ShippingAddressRequest shippingAddressRequest = request.getShippingAddress();
         return shippingAddressMapper.convertToEntity(new ShippingAddress(), shippingAddressRequest);
+    }
+
+    private static String getTotalAmount(Order order) {
+        DecimalFormat df = new DecimalFormat("#.##");
+        double totalAmount = order.getTotalAmount();
+        return df.format(totalAmount);
     }
 }

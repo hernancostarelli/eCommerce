@@ -33,9 +33,6 @@ public interface IOrderDetailService {
     List<OrderDetailResponse> getAll(String value) throws OrderDetailException;
 
     @Transactional(readOnly = true)
-    List<OrderDetailResponse> getOrderDetailByOrder(String idOrder) throws OrderDetailException;
-
-    @Transactional(readOnly = true)
     List<OrderDetailResponse> getForEnable() throws OrderDetailException;
 
     @Transactional(readOnly = true)

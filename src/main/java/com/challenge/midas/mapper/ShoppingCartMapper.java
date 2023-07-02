@@ -14,6 +14,7 @@ import com.challenge.midas.repository.ShoppingCartRepository;
 import com.challenge.midas.repository.UserRepository;
 import org.springframework.stereotype.Component;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -78,7 +79,10 @@ public class ShoppingCartMapper {
             productResponse.setId(product.getId());
             productResponse.setName(product.getName());
             productResponse.setDescription(product.getDescription());
-            productResponse.setPrice(product.getPrice());
+
+            String stringPrice = getPrice(product);
+            productResponse.setPrice(Double.parseDouble(stringPrice));
+
             productResponse.setQuantity(product.getQuantity());
             productResponse.setImage(product.getImage());
             productResponse.setCreationDate(product.getCreationDate() != null ?
@@ -100,5 +104,11 @@ public class ShoppingCartMapper {
         return shoppingCarts.stream()
                 .map(this::convertToResponse)
                 .collect(Collectors.toList());
+    }
+
+    private static String getPrice(Product product) {
+        DecimalFormat df = new DecimalFormat("#.##");
+        double price = product.getPrice();
+        return df.format(price);
     }
 }

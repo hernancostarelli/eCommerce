@@ -108,7 +108,7 @@ public class OrderServiceImpl implements IOrderService {
         }
         List<Order> orderList = repository.getByValue("%" + value + "%");
         if (orderList.isEmpty()) {
-            throw new OrderException(EExceptionMessage.ORDER_NOT_FOUND.toString());
+            throw new OrderException(EExceptionMessage.THE_ORDER_LIST_IS_EMPTY.toString());
         }
         return mapper.convertToResponseList(orderList);
     }

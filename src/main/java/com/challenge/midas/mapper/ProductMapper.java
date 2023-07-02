@@ -11,6 +11,7 @@ import com.challenge.midas.repository.UserRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -47,12 +48,13 @@ public class ProductMapper {
         response.setId(product.getId());
         response.setName(product.getName());
         response.setDescription(product.getDescription());
-        response.setPrice(product.getPrice());
+
+        String stringPrice = getPrice(product);
+        response.setPrice(Double.parseDouble(stringPrice));
+
         response.setQuantity(product.getQuantity());
         response.setImage(product.getImage());
         response.setUser(product.getUser().getFullName());
-        /*response.setOrders(product.getOrders());
-        response.setShoppingCarts(product.getShoppingCarts());*/
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String stringCreationDate = product.getCreationDate() != null ? sdf.format(product.getCreationDate()) : null;
         String stringModificationDate = product.getModificationDate() != null ? sdf.format(product.getModificationDate()) : null;
@@ -117,5 +119,11 @@ public class ProductMapper {
             throw new ProductException(EExceptionMessage.THE_PRODUCT_PRICE_MUST_BE_POSITIVE.toString());
         if (quantity <= 0)
             throw new ProductException(EExceptionMessage.THE_PRODUCT_QUANTITY_MUST_BE_POSITIVE.toString());
+    }
+
+    private static String getPrice(Product product) {
+        DecimalFormat df = new DecimalFormat("#.##");
+        double price = product.getPrice();
+        return df.format(price);
     }
 }

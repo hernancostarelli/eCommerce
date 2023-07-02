@@ -11,6 +11,7 @@ public class AuthenticationRequest {
 
         @NotBlank(message = "EL NOMBRE DE USUARIO NO DEBE ESTAR VACÍO")
         private String email;
+
         @NotBlank(message = "DEBE INGRESAR UNA CONTRASEÑA")
         private String password;
 }

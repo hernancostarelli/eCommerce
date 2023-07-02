@@ -9,11 +9,9 @@ public enum EExceptionMessage {
     //!//////////////////////////////////////////////////////////////////////////////////////////
     ID_NOT_FOUND("ID NO ENCONTRADO"),
     ID_ALREADY_EXISTS("EL ID YA EXISTE"),
-    PARAM_NOT_FOUND("PARÁMETRO NO ENCONTRADO"),
     EMAIL_ALREADY_EXISTS("EL EMAIL {0} YA EXISTE"),
     INCORRECT_USERNAME_OR_PASSWORD("USUARIO O CONTRASEÑA INCORRECTA"),
     REQUEST_WRONG_DATA("REQUEST INCORRECTO"),
-
     //!//////////////////////////////////////////////////////////////////////////////////////////
     //! USER EXCEPTION MESSAGE
     //!//////////////////////////////////////////////////////////////////////////////////////////
@@ -69,13 +67,19 @@ public enum EExceptionMessage {
     THE_SHIPPING_ADDRESS_COULD_NOT_BE_DISABLED("EL CARRITO DE COMPRAS NO PUDO SER DESHABILITADO"),
     THE_SHIPPING_ADDRESS_LIST_IS_EMPTY("LA LISTA DE CARRITOS DE COMPRAS ESTA VACÍA"),
     //!//////////////////////////////////////////////////////////////////////////////////////////
-    //! PAYMENT ADDRESS EXCEPTION MESSAGE
+    //! PAYMENT EXCEPTION MESSAGE
     //!//////////////////////////////////////////////////////////////////////////////////////////
     PAYMENT_NOT_FOUND("PAGO NO ENCONTRADO"),
     THE_PAYMENT_COULD_NOT_BE_ENABLED("EL PAGO NO PUDO SER HABILITADO"),
     THE_PAYMENT_COULD_NOT_BE_DISABLE("EL PAGO NO PUDO SER DESHABILITADO"),
-    THE_PAYMENT_LIST_IS_EMPTY("LA LISTA DE PAGOS ESTA VACÍA");
-
+    THE_PAYMENT_LIST_IS_EMPTY("LA LISTA DE PAGOS ESTA VACÍA"),
+    //!//////////////////////////////////////////////////////////////////////////////////////////
+    //! ORDER DETAIL EXCEPTION MESSAGE
+    //!//////////////////////////////////////////////////////////////////////////////////////////
+    ORDER_DETAIL_NOT_FOUND("DETALLE DE ORDEN NO ENCONTRADO"),
+    THE_ORDER_DETAIL_COULD_NOT_BE_ENABLED("EL DETALLE DE ORDEN NO PUDO SER HABILITADO"),
+    THE_ORDER_DETAIL_COULD_NOT_BE_DISABLED("EL DETALLE DE ORDEN NO PUDO SER DESHABILITADO"),
+    THE_ORDER_DETAIL_LIST_IS_EMPTY("LA LISTA DE DETALLES DE ORDEN ESTA VACÍA");
 
     private final String messageString;
 

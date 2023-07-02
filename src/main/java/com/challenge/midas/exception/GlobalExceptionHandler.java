@@ -203,6 +203,210 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, status);
     }
 
+    @ExceptionHandler(OrderException.class)
+    protected ResponseEntity<ErrorResponse> handlerOrderException(OrderException exception) {
+
+        ErrorResponse errorResponse = null;
+        HttpStatus status = null;
+        String typeException = "ORDER EXCEPTION";
+
+        if (exception.getMessage().equals(EExceptionMessage.ORDER_NOT_FOUND.toString())) {
+            errorResponse = buildErrorResponse(HttpStatus.NOT_FOUND, HttpStatus.NOT_FOUND.name(), typeException,
+                    EExceptionMessage.ORDER_NOT_FOUND.toString(),
+                    exception);
+            status = HttpStatus.NOT_FOUND;
+        }
+        if (exception.getMessage().equals(EExceptionMessage.THE_ORDER_COULD_NOT_BE_ENABLED.toString())) {
+            errorResponse = buildErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, HttpStatus.INTERNAL_SERVER_ERROR.name(), typeException,
+                    EExceptionMessage.THE_ORDER_COULD_NOT_BE_ENABLED.toString(),
+                    exception);
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        if (exception.getMessage().equals(EExceptionMessage.THE_ORDER_COULD_NOT_BE_DISABLE.toString())) {
+            errorResponse = buildErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, HttpStatus.INTERNAL_SERVER_ERROR.name(), typeException,
+                    EExceptionMessage.THE_ORDER_COULD_NOT_BE_DISABLE.toString(),
+                    exception);
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        if (exception.getMessage().equals(EExceptionMessage.THE_ORDER_LIST_IS_EMPTY.toString())) {
+            errorResponse = buildErrorResponse(HttpStatus.NO_CONTENT, HttpStatus.NO_CONTENT.name(), typeException,
+                    EExceptionMessage.THE_ORDER_LIST_IS_EMPTY.toString(),
+                    exception);
+            status = HttpStatus.NO_CONTENT;
+        }
+
+        assert status != null;
+        return new ResponseEntity<>(errorResponse, status);
+    }
+
+    @ExceptionHandler(ShoppingCartException.class)
+    protected ResponseEntity<ErrorResponse> handlerShoppingCartException(ShoppingCartException exception) {
+
+        ErrorResponse errorResponse = null;
+        HttpStatus status = null;
+        String typeException = "SHOPPING CART EXCEPTION";
+
+        if (exception.getMessage().equals(EExceptionMessage.SHOPPING_CART_NOT_FOUND.toString())) {
+            errorResponse = buildErrorResponse(HttpStatus.NOT_FOUND, HttpStatus.NOT_FOUND.name(), typeException,
+                    EExceptionMessage.SHOPPING_CART_NOT_FOUND.toString(),
+                    exception);
+            status = HttpStatus.NOT_FOUND;
+        }
+        if (exception.getMessage().equals(EExceptionMessage.THE_SHOPPING_CART_COULD_NOT_BE_ENABLED.toString())) {
+            errorResponse = buildErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, HttpStatus.INTERNAL_SERVER_ERROR.name(), typeException,
+                    EExceptionMessage.THE_SHOPPING_CART_COULD_NOT_BE_ENABLED.toString(),
+                    exception);
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        if (exception.getMessage().equals(EExceptionMessage.THE_SHOPPING_CART_COULD_NOT_BE_DISABLE.toString())) {
+            errorResponse = buildErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, HttpStatus.INTERNAL_SERVER_ERROR.name(), typeException,
+                    EExceptionMessage.THE_SHOPPING_CART_COULD_NOT_BE_DISABLE.toString(),
+                    exception);
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        if (exception.getMessage().equals(EExceptionMessage.THE_SHOPPING_CART_LIST_IS_EMPTY.toString())) {
+            errorResponse = buildErrorResponse(HttpStatus.NO_CONTENT, HttpStatus.NO_CONTENT.name(), typeException,
+                    EExceptionMessage.THE_SHOPPING_CART_LIST_IS_EMPTY.toString(),
+                    exception);
+            status = HttpStatus.NO_CONTENT;
+        }
+
+        assert status != null;
+        return new ResponseEntity<>(errorResponse, status);
+    }
+
+    @ExceptionHandler(ShippingAddressException.class)
+    protected ResponseEntity<ErrorResponse> handlerShippingAddressException(ShippingAddressException exception) {
+
+        ErrorResponse errorResponse = null;
+        HttpStatus status = null;
+        String typeException = "SHIPPING ADDRESS EXCEPTION";
+
+        if (exception.getMessage().equals(EExceptionMessage.SHIPPING_ADDRESS_NOT_FOUND.toString())) {
+            errorResponse = buildErrorResponse(HttpStatus.NOT_FOUND, HttpStatus.NOT_FOUND.name(), typeException,
+                    EExceptionMessage.SHIPPING_ADDRESS_NOT_FOUND.toString(),
+                    exception);
+            status = HttpStatus.NOT_FOUND;
+        }
+        if (exception.getMessage().equals(EExceptionMessage.THE_STREET_CANNOT_BE_EMPTY_OR_BE_NULL.toString())) {
+            errorResponse = buildErrorResponse(HttpStatus.BAD_REQUEST, HttpStatus.BAD_REQUEST.name(), typeException,
+                    EExceptionMessage.THE_STREET_CANNOT_BE_EMPTY_OR_BE_NULL.toString(),
+                    exception);
+            status = HttpStatus.BAD_REQUEST;
+        }
+        if (exception.getMessage().equals(EExceptionMessage.THE_CITY_CANNOT_BE_EMPTY_OR_BE_NULL.toString())) {
+            errorResponse = buildErrorResponse(HttpStatus.BAD_REQUEST, HttpStatus.BAD_REQUEST.name(), typeException,
+                    EExceptionMessage.THE_CITY_CANNOT_BE_EMPTY_OR_BE_NULL.toString(),
+                    exception);
+            status = HttpStatus.BAD_REQUEST;
+        }
+        if (exception.getMessage().equals(EExceptionMessage.THE_ZIP_CODE_CANNOT_BE_EMPTY_OR_BE_NULL.toString())) {
+            errorResponse = buildErrorResponse(HttpStatus.BAD_REQUEST, HttpStatus.BAD_REQUEST.name(), typeException,
+                    EExceptionMessage.THE_ZIP_CODE_CANNOT_BE_EMPTY_OR_BE_NULL.toString(),
+                    exception);
+            status = HttpStatus.BAD_REQUEST;
+        }
+        if (exception.getMessage().equals(EExceptionMessage.THE_COUNTRY_CANNOT_BE_EMPTY_OR_BE_NULL.toString())) {
+            errorResponse = buildErrorResponse(HttpStatus.BAD_REQUEST, HttpStatus.BAD_REQUEST.name(), typeException,
+                    EExceptionMessage.THE_COUNTRY_CANNOT_BE_EMPTY_OR_BE_NULL.toString(),
+                    exception);
+            status = HttpStatus.BAD_REQUEST;
+        }
+        if (exception.getMessage().equals(EExceptionMessage.THE_SHIPPING_ADDRESS_COULD_NOT_BE_ENABLED.toString())) {
+            errorResponse = buildErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, HttpStatus.INTERNAL_SERVER_ERROR.name(), typeException,
+                    EExceptionMessage.THE_SHIPPING_ADDRESS_COULD_NOT_BE_ENABLED.toString(),
+                    exception);
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        if (exception.getMessage().equals(EExceptionMessage.THE_SHIPPING_ADDRESS_COULD_NOT_BE_DISABLED.toString())) {
+            errorResponse = buildErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, HttpStatus.INTERNAL_SERVER_ERROR.name(), typeException,
+                    EExceptionMessage.THE_SHIPPING_ADDRESS_COULD_NOT_BE_DISABLED.toString(),
+                    exception);
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        if (exception.getMessage().equals(EExceptionMessage.THE_SHIPPING_ADDRESS_LIST_IS_EMPTY.toString())) {
+            errorResponse = buildErrorResponse(HttpStatus.NO_CONTENT, HttpStatus.NO_CONTENT.name(), typeException,
+                    EExceptionMessage.THE_SHIPPING_ADDRESS_LIST_IS_EMPTY.toString(),
+                    exception);
+            status = HttpStatus.NO_CONTENT;
+        }
+
+        assert status != null;
+        return new ResponseEntity<>(errorResponse, status);
+    }
+
+    @ExceptionHandler(PaymentException.class)
+    protected ResponseEntity<ErrorResponse> handlerPaymentException(PaymentException exception) {
+
+        ErrorResponse errorResponse = null;
+        HttpStatus status = null;
+        String typeException = "PAYMENT EXCEPTION";
+
+        if (exception.getMessage().equals(EExceptionMessage.PAYMENT_NOT_FOUND.toString())) {
+            errorResponse = buildErrorResponse(HttpStatus.NOT_FOUND, HttpStatus.NOT_FOUND.name(), typeException,
+                    EExceptionMessage.PAYMENT_NOT_FOUND.toString(),
+                    exception);
+            status = HttpStatus.NOT_FOUND;
+        }
+        if (exception.getMessage().equals(EExceptionMessage.THE_PAYMENT_COULD_NOT_BE_ENABLED.toString())) {
+            errorResponse = buildErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, HttpStatus.INTERNAL_SERVER_ERROR.name(), typeException,
+                    EExceptionMessage.THE_PAYMENT_COULD_NOT_BE_ENABLED.toString(),
+                    exception);
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        if (exception.getMessage().equals(EExceptionMessage.THE_PAYMENT_COULD_NOT_BE_DISABLE.toString())) {
+            errorResponse = buildErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, HttpStatus.INTERNAL_SERVER_ERROR.name(), typeException,
+                    EExceptionMessage.THE_PAYMENT_COULD_NOT_BE_DISABLE.toString(),
+                    exception);
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        if (exception.getMessage().equals(EExceptionMessage.THE_PAYMENT_LIST_IS_EMPTY.toString())) {
+            errorResponse = buildErrorResponse(HttpStatus.NO_CONTENT, HttpStatus.NO_CONTENT.name(), typeException,
+                    EExceptionMessage.THE_PAYMENT_LIST_IS_EMPTY.toString(),
+                    exception);
+            status = HttpStatus.NO_CONTENT;
+        }
+
+        assert status != null;
+        return new ResponseEntity<>(errorResponse, status);
+    }
+
+    @ExceptionHandler(OrderDetailException.class)
+    protected ResponseEntity<ErrorResponse> handlerOderDetailException(OrderDetailException exception) {
+
+        ErrorResponse errorResponse = null;
+        HttpStatus status = null;
+        String typeException = "ORDER DETAIL EXCEPTION";
+
+        if (exception.getMessage().equals(EExceptionMessage.ORDER_DETAIL_NOT_FOUND.toString())) {
+            errorResponse = buildErrorResponse(HttpStatus.NOT_FOUND, HttpStatus.NOT_FOUND.name(), typeException,
+                    EExceptionMessage.ORDER_DETAIL_NOT_FOUND.toString(),
+                    exception);
+            status = HttpStatus.NOT_FOUND;
+        }
+        if (exception.getMessage().equals(EExceptionMessage.THE_ORDER_DETAIL_COULD_NOT_BE_ENABLED.toString())) {
+            errorResponse = buildErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, HttpStatus.INTERNAL_SERVER_ERROR.name(), typeException,
+                    EExceptionMessage.THE_ORDER_DETAIL_COULD_NOT_BE_ENABLED.toString(),
+                    exception);
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        if (exception.getMessage().equals(EExceptionMessage.THE_ORDER_DETAIL_COULD_NOT_BE_DISABLED.toString())) {
+            errorResponse = buildErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, HttpStatus.INTERNAL_SERVER_ERROR.name(), typeException,
+                    EExceptionMessage.THE_ORDER_DETAIL_COULD_NOT_BE_DISABLED.toString(),
+                    exception);
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        if (exception.getMessage().equals(EExceptionMessage.THE_ORDER_DETAIL_LIST_IS_EMPTY.toString())) {
+            errorResponse = buildErrorResponse(HttpStatus.NO_CONTENT, HttpStatus.NO_CONTENT.name(), typeException,
+                    EExceptionMessage.THE_ORDER_DETAIL_LIST_IS_EMPTY.toString(),
+                    exception);
+            status = HttpStatus.NO_CONTENT;
+        }
+
+        assert status != null;
+        return new ResponseEntity<>(errorResponse, status);
+    }
+
     @ExceptionHandler(MaxUploadSizeExceededException.class)
     public ResponseEntity<ErrorResponse> handlerMaxUploadSizeException(MaxUploadSizeExceededException exception) {
         HttpStatus status = HttpStatus.BAD_REQUEST;
