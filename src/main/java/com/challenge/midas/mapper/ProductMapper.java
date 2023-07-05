@@ -53,7 +53,7 @@ public class ProductMapper {
 
         response.setQuantity(product.getQuantity());
         response.setImage(product.getImage());
-        response.setUser(product.getUser().getFullName());
+        response.setUser(getUserResponse(product));
         response.setCreationDate(product.getCreationDate() != null ?
                 new SimpleDateFormat(DD_MM_YYYY).format(product.getCreationDate()) : null);
         response.setModificationDate(product.getModificationDate() != null ?
@@ -90,7 +90,6 @@ public class ProductMapper {
 
     private User getUser(ProductRequest request) throws UserException {
         validateRequestUser(request);
-        validateRequestUser(request);
         String idUser = request.getIdUser();
         Optional<User> optionalUser = userRepository.findById(idUser);
         if (optionalUser.isPresent()) {
@@ -98,6 +97,11 @@ public class ProductMapper {
         } else {
             throw new UserException(EExceptionMessage.USER_NOT_FOUND.getMessage());
         }
+    }
+
+    private String getUserResponse(Product product) {
+        Optional<User> optionalUser = userRepository.findById(product.getUser().getId());
+        return optionalUser.map(User::getFullName).orElse(null);
     }
 
     private void validateRequestUser(ProductRequest request) throws UserException {

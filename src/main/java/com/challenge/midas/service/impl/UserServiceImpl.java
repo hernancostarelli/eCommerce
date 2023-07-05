@@ -57,7 +57,7 @@ public class UserServiceImpl implements IUserService {
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
             if (user.isDeleted()) {
-                user.setDeleted(true);
+                user.setDeleted(false);
                 user.setModificationDate(new Date());
                 repository.save(user);
             } else {
@@ -73,8 +73,8 @@ public class UserServiceImpl implements IUserService {
         Optional<User> optionalUser = repository.findById(idUser);
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
-            if (user.isDeleted()) {
-                user.setDeleted(false);
+            if (!user.isDeleted()) {
+                user.setDeleted(true);
                 user.setModificationDate(new Date());
                 repository.save(user);
             } else {

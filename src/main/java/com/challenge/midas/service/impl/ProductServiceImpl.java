@@ -46,7 +46,7 @@ public class ProductServiceImpl implements IProductService {
         if (optionalProduct.isPresent()) {
             Product product = optionalProduct.get();
             if (product.isDeleted()) {
-                product.setDeleted(true);
+                product.setDeleted(false);
                 product.setModificationDate(new Date());
                 repository.save(product);
             } else {
@@ -62,8 +62,8 @@ public class ProductServiceImpl implements IProductService {
         Optional<Product> optionalProduct = repository.findById(idProduct);
         if (optionalProduct.isPresent()) {
             Product product = optionalProduct.get();
-            if (product.isDeleted()) {
-                product.setDeleted(false);
+            if (!product.isDeleted()) {
+                product.setDeleted(true);
                 product.setModificationDate(new Date());
                 repository.save(optionalProduct.get());
             } else {

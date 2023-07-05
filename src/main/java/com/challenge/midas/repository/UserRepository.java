@@ -12,10 +12,9 @@ public interface UserRepository extends JpaRepository<User, String> {
     boolean existsByEmail(String email);
 
     @Query("SELECT u FROM User u WHERE " +
-            "u.name LIKE :value " +
-            "OR u.surname LIKE :value " +
-            "AND u.deleted = false " +
-            "ORDER BY u.surname ASC")
+            "(u.name LIKE :value " +
+            "OR u.surname LIKE :value) " +
+            "AND u.deleted = false ORDER BY u.surname ASC")
     List<User> getByValue(String value);
 
     @Query("SELECT u FROM User u WHERE u.deleted = false ORDER BY u.surname ASC")

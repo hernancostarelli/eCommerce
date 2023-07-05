@@ -198,6 +198,12 @@ public class GlobalExceptionHandler {
                     exception);
             status = HttpStatus.NO_CONTENT;
         }
+        if (exception.getMessage().equals(EExceptionMessage.THE_QUANTITY_OF_PRODUCTS_EXCEEDED_STOCK.toString())) {
+            errorResponse = buildErrorResponse(HttpStatus.UNPROCESSABLE_ENTITY, HttpStatus.UNPROCESSABLE_ENTITY.name(), typeException,
+                    EExceptionMessage.THE_QUANTITY_OF_PRODUCTS_EXCEEDED_STOCK.toString(),
+                    exception);
+            status = HttpStatus.UNPROCESSABLE_ENTITY;
+        }
 
         assert status != null;
         return new ResponseEntity<>(errorResponse, status);

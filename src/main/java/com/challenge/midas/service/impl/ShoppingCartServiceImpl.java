@@ -51,7 +51,7 @@ public class ShoppingCartServiceImpl implements IShoppingCartService {
         if (optionalShoppingCart.isPresent()) {
             ShoppingCart shoppingCart = optionalShoppingCart.get();
             if (shoppingCart.isDeleted()) {
-                shoppingCart.setDeleted(true);
+                shoppingCart.setDeleted(false);
                 shoppingCart.setModificationDate(new Date());
                 repository.save(shoppingCart);
             } else {
@@ -67,8 +67,8 @@ public class ShoppingCartServiceImpl implements IShoppingCartService {
         Optional<ShoppingCart> optionalShoppingCart = repository.findById(idShoppingCart);
         if (optionalShoppingCart.isPresent()) {
             ShoppingCart shoppingCart = optionalShoppingCart.get();
-            if (shoppingCart.isDeleted()) {
-                shoppingCart.setDeleted(false);
+            if (!shoppingCart.isDeleted()) {
+                shoppingCart.setDeleted(true);
                 shoppingCart.setModificationDate(new Date());
                 repository.save(optionalShoppingCart.get());
             } else {
